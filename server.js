@@ -2,6 +2,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
@@ -13,6 +15,13 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Get directory path in ES modules
+const currentFilePath = fileURLToPath(import.meta.url);
+const currentDirPath = path.dirname(currentFilePath);
+
+// Serve static files from the uploads directory
+app.use('/uploads', express.static(path.join(currentDirPath, 'uploads')));
 
 // Add this root route handler
 app.get('/', (req, res) => {
