@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema({
   height: { type: Number, default: 0 },
   healthConditions: { type: [String], default: [] },
   dietaryPreferences: { type: String, default: '' },
+  bio: { type: String, default: '' },
 }, { timestamps: true });
 
 export default mongoose.model('User', userSchema);
