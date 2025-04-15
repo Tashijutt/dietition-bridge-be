@@ -1,4 +1,5 @@
 import Dietitian from '../models/Dietitian.js';
+import User from '../models/User.js';
 
 export const createDietitianProfile = async (req, res) => {
   try {
@@ -16,6 +17,15 @@ export const getMyProfile = async (req, res) => {
   try {
     const profile = await Dietitian.findOne({ user: req.user.id });
     res.json(profile);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const getAllDietitians = async (req, res) => {
+  try {
+    const dietitians = await User.find({ role: 'dietitian' });
+    res.json(dietitians);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
